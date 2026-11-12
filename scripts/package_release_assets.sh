@@ -42,9 +42,10 @@ split_one() {
     # rename numeric suffix to letters (aa, ab, ...) for clarity
     local i=0
     for p in "$OUT/$base".part-[0-9][0-9]; do
-      local suffix
-      suffix=$(printf "%s" "$(printf '\\%03o%03o' $((97 + i / 26)) $((97 + i % 26)))")
-      mv -f "$p" "$OUT/$base.part-$suffix"
+      local c1 c2
+      c1=$(printf "\\$(printf '%03o' $((97 + i / 26)))")
+      c2=$(printf "\\$(printf '%03o' $((97 + i % 26)))")
+      mv -f "$p" "$OUT/$base.part-${c1}${c2}"
       i=$((i + 1))
     done
     echo "split $base ($bytes bytes) -> $i parts of <= ${SPLIT_MB} MiB"

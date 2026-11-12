@@ -50,3 +50,7 @@ Thumbs.db
 # keep the templates
 !configs/*.json
 !models/manifest.json
+
+# release packaging output
+*.part-*
+SHA256SUMS
