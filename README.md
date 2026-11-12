@@ -38,7 +38,9 @@ groundingpi-rk3588/
 
 - RK3588 board (aarch64), Linux, g++ ≥ 11, CMake ≥ 3.16
 - **RKLLM runtime 1.3.1** and **RKNN runtime 2.5.0** from the Rockchip SDK (not bundled)
-- Optional: OpenCV (only for some experiments), librga (only for the RGA probes)
+- **OpenCV** (core, imgproc, imgcodecs): both apps decode JPEGs with it
+- **librga** headers (`im2d.hpp`): needed by the baseline app's preprocessing path
+- Experiments with `--opencv` reuse the same OpenCV; the RGA probes need librga
 
 ## Build
 
