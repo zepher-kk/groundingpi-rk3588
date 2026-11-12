@@ -1,0 +1,29 @@
+{
+  "profile": "gpi3s-student-fp16-v1",
+  "description": "TinyViT-11M + trained projector -> Qwen3-1.7B (FP16), image + text -> box",
+  "asset_dir_env": "GPI_ASSET_DIR",
+  "files": {
+    "llm": "student_qwen3-1.7b-fp16.rkllm",
+    "vision": "student_vision_trained_fp16.rknn",
+    "vocab": "vocab.bin",
+    "merges": "merges.bin",
+    "embed_table": "embed_tokens_151669x2048.bf16"
+  },
+  "protocol": {
+    "name": "gpi-3s-protocol-v1",
+    "image_slots": 144,
+    "canvas": 384,
+    "coord_base": 151670,
+    "coord_last": 152669,
+    "none_box": 151669,
+    "box_end": 151649,
+    "im_end": 151645,
+    "parse_rule": "deploy-parse-v1"
+  },
+  "runtime": {
+    "max_context": 512,
+    "max_new_tokens": 8,
+    "base_domain_id": 1,
+    "vision_core": 0
+  }
+}

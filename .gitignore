@@ -1,0 +1,52 @@
+# build output
+build/
+*.o
+*.so
+*.a
+
+# model weights and converted assets (never committed)
+*.rkllm
+*.rknn
+*.onnx
+*.pt
+*.pth
+*.bin
+*.bf16
+*.f32
+*.npy
+*.safetensors
+
+# datasets / images
+images/
+*.jpg
+*.jpeg
+*.png
+!docs/**/*.png
+
+# local config and logs
+.env
+.env.*
+*.log
+logs/
+runs/
+
+# vendor SDK headers (proprietary; obtain from Rockchip SDK)
+include/rkllm.h
+include/rknn_api.h
+third_party/
+
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# editors / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# keep the templates
+!configs/*.json
+!models/manifest.json

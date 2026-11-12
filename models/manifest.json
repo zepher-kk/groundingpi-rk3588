@@ -1,0 +1,40 @@
+{
+  "generated_from": "local build, 2026-11-12",
+  "note": "Weights are NOT in this repository (board project is ~21 GB). Use this file to identify and verify your own copies.",
+  "student": {
+    "profile": "gpi3s-student-fp16-v1",
+    "source": "convert from the trained checkpoint (projector + replaced task rows + merged LoRA); see docs/deployment.md",
+    "files": [
+      {"role": "llm", "name": "student_qwen3-1.7b-fp16.rkllm", "bytes": 4093117364,
+       "sha256": "89eb29194b8d0bb9769b6fd994775d0e5d06f0d3db424d253d13c0f70975db37"},
+      {"role": "vision", "name": "student_vision_trained_fp16.rknn", "bytes": 49595702,
+       "sha256": "87149a1de242bba8fad5d43ee10499804d7b326640d82f409c3512bf104f2046"},
+      {"role": "vocab", "name": "vocab.bin", "bytes": 2604089,
+       "sha256": "74a339241ccee155a9facd527ef192d98a9d9ec10f9f843c7bdb5203d2d9af09"},
+      {"role": "merges", "name": "merges.bin", "bytes": 2580165,
+       "sha256": "4318f49522a6737d9d16820d8a38f42f9d401bc870efcd059ee916df81a7554e"},
+      {"role": "embed_table", "name": "embed_tokens_151669x2048.bf16", "bytes": 621236224,
+       "sha256": "4592131df388ca6e53498064d94e90c0548ec5e0520f6b0b554742fe7c5c0f1c"}
+    ]
+  },
+  "baseline": {
+    "profile": "groundingpi-4b-w8a8",
+    "source": "original GroundingPI deployment assets (MoonViT-27 split into 3 stages + Qwen3-4B W8A8)",
+    "files": [
+      {"role": "llm", "name": "groundingpi-4b-w8a8.rkllm", "bytes": 4844636700,
+       "sha256_prefix": "128e0c4bee3b56a2"},
+      {"role": "vision_stage0", "name": "v2-stage00.rknn", "bytes": 165623388,
+       "sha256": "1e7cc7b4556ca87a401c795fd57aaca100303c2d73d5b1c039a00e766c83f160"},
+      {"role": "vision_stage1", "name": "v2-stage09.rknn", "bytes": 161102622,
+       "sha256": "0d1a3eaf42f2ad4ba79cc4c4eeb763a3dd4473a3ee0fafcdc816b0e884d6ec66"},
+      {"role": "vision_stage2", "name": "v2-stage18.rknn", "bytes": 188950425,
+       "sha256": "76d944e247f7bcc573d6cbfd225632fae0067619086376fcc2c00fa6662138f6"},
+      {"role": "vocab", "name": "llm-assets/vocab.bin", "bytes": 2582631,
+       "sha256": "966c924d238010f17592838ed855d61f8b7215368154e7ba38a46b83b2edd2b6"},
+      {"role": "merges", "name": "llm-assets/merges.bin", "bytes": 2580165,
+       "sha256": "4318f49522a6737d9d16820d8a38f42f9d401bc870efcd059ee916df81a7554e"},
+      {"role": "embed_table", "name": "llm-assets/embed.bf16", "bytes": 781670400,
+       "sha256": "60c8febd68fb383434982282ecbfece8c47fe7a13429167ff4fc772b2512f93d"}
+    ]
+  }
+}

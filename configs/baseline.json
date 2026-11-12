@@ -1,0 +1,21 @@
+{
+  "profile": "groundingpi-4b-w8a8",
+  "description": "Original GroundingPI: MoonViT-27 (3 FP16 RKNN stages, 448x448, 256 tokens) + Qwen3-4B W8A8",
+  "model_dir_env": "GPI_MODEL_DIR",
+  "paths": {
+    "llm": "groundingpi-4b-w8a8.rkllm",
+    "assets": "llm-assets",
+    "vision_stages": ["v2-stage00.rknn", "v2-stage09.rknn", "v2-stage18.rknn"]
+  },
+  "protocol": {
+    "image_slots": 256,
+    "canvas": 448,
+    "note": "GAM coordinate tokens (<number> ids starting at 151669); none is the text token 'None'"
+  },
+  "runtime": {
+    "max_context": 512,
+    "max_new_tokens": 32,
+    "base_domain_id": 0,
+    "prep": "cpu"
+  }
+}
