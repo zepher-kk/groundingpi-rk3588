@@ -69,9 +69,10 @@ python3 scripts/verify_assets.py --profile baseline
 ```
 
 `models/manifest.json` lists the exact filenames, sizes and SHA256 values.
-How to produce them from a trained checkpoint (merge LoRA, replace task rows, export the
-vision ONNX → RKNN, build the W8A8/FP16 RKLLM, export tokenizer bins and the embedding table)
-is in `docs/deployment.md`.
+Weights are published as GitHub Release assets (split into <2 GiB parts), see
+`docs/release-assets.md`. How to produce them from a trained checkpoint (merge LoRA, replace task
+rows, export the vision ONNX → RKNN, build the FP16/W8A8 RKLLM, export tokenizer bins and the
+embedding table) is in `docs/deployment.md`.
 
 ## Run
 
@@ -112,5 +113,6 @@ concurrency support.
 
 ## License
 
-No license applied yet; SDK binaries and weights are not distributed here. Read `NOTICE.md`
-before publishing or reusing.
+[MIT](LICENSE) © 2026 zepher-kk — covers this repository's own code only. The Rockchip SDK
+(headers/libraries) and the model weights are **not** distributed here, and are not covered by
+this license; see `NOTICE.md`.

@@ -2,42 +2,31 @@
 
 This repository contains only **source code, configuration and documentation** produced for the
 GroundingPI RK3588 project. **No model weights, SDK binaries or SDK headers are included.**
+Weights are published separately as GitHub Release assets (see `docs/release-assets.md`).
 
-## What is in here
+## License of this repository's own code
 
-| Path | Origin | Notes |
-| --- | --- | --- |
-| `src/`, `include/`, `apps/` | this project | inference plumbing, C++ entries for the two profiles |
-| `experiments/` | this project | probes and batch experiments; **not built by default** |
-| `scripts/`, `configs/`, `models/manifest.json` | this project | build/run helpers, templates, asset identity |
-| `docs/` | this project | architecture, deployment, performance, limitations |
+MIT (see `LICENSE`), © 2026 zepher-kk. This covers only the files in this repository:
+`src/`, `include/`, `apps/`, `experiments/`, `scripts/`, `configs/`, `docs/`.
 
-## What is deliberately not in here
+If you prefer an explicit patent grant instead of MIT, Apache-2.0 is a drop-in replacement for
+this code base; replace `LICENSE` and the "License" section of `README.md`.
 
-- **RKLLM / RKNN SDK** (`rkllm.h`, `rknn_api.h`, `librkllmrt.so`, `librknnrt.so`).
-  These are Rockchip proprietary files (`rknn_api.h` states "This is proprietary information
-  owned by Rockchip"). Obtain them from the official SDK for your runtime version and point
-  `RKLLM_SDK_DIR` / `RKNN_SDK_DIR` at them. Do not redistribute them from here.
-- **Model weights** (`*.rkllm`, `*.rknn`, embedding tables, tokenizer binaries). They are
-  large and are governed by their own upstream terms (Qwen3 model license, TinyViT/MoonViT
-  weights, plus whatever your own training adds). `models/manifest.json` records identity
-  (size/SHA256) so a local copy can be verified.
-- Historical debug scripts, machine logs, board diagnostics and anything containing
-  credentials. They stay in the private working directory.
+## What is deliberately not covered / not redistributed
 
-## Licensing of this repository's own code
-
-No open-source license has been applied yet. Until one is added, the code is
-"all rights reserved" by default. Before publishing:
-
-1. Decide the license for **this project's own code** only.
-2. Keep SDK headers/binaries and weights out of the repository (as above), so no
-   third-party license is implied over them.
-3. If you vendor any upstream code later (e.g. TinyViT reference implementation),
-   add per-file attribution and keep its original license text.
+- **RKLLM / RKNN SDK** (`rkllm.h`, `rknn_api.h`, `librkllmrt.so`, `librknnrt.so`) are Rockchip
+  proprietary (`rknn_api.h` states "This is proprietary information owned by Rockchip").
+  Obtain them from the official SDK; point `RKLLM_SDK_DIR` / `RKNN_SDK_DIR` at them.
+  The MIT license above does **not** apply to them, and they are not shipped here.
+- **Model weights** (`*.rkllm`, `*.rknn`, embedding tables, tokenizer binaries) are governed by
+  their own upstream terms. The student's language base is Qwen3 (Alibaba Qwen license), the
+  visual backbone derives from TinyViT (Microsoft, MIT for the reference implementation), and
+  the trained adapter/projector/task rows come from this project. Check upstream terms before
+  redistributing converted weights.
+- Historical debug scripts, machine logs, board diagnostics and anything containing credentials
+  remain private and are not part of this repository.
 
 ## Data and results
 
-The evaluation numbers in `docs/performance.md` come from a 64-request set that is a
-**subset of the training samples**. They are deployment-regression numbers, not
-generalization accuracy.
+The evaluation numbers in `docs/performance.md` come from a 64-request set that is a **subset of
+the training samples**. They are deployment-regression numbers, not generalization accuracy.
