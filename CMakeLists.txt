@@ -52,6 +52,21 @@ include_directories(
   ${RKNN_SDK_DIR}/include
 )
 
+# Both production apps decode JPEGs with OpenCV; the baseline also uses librga in
+# preprocess.cc. OpenCV is therefore required for the apps, RGA only for the baseline.
+if(ENABLE_GROUNDINGPI OR ENABLE_STUDENT OR ENABLE_OPENCV_EXPERIMENTS)
+  find_package(OpenCV REQUIRED COMPONENTS core imgproc imgcodecs)
+  include_directories(${OpenCV_INCLUDE_DIRS})
+  message(STATUS "opencv: ${OpenCV_VERSION} (${OpenCV_INCLUDE_DIRS})")
+endif()
+
+find_library(RGA_LIB NAMES rga)
+find_path(RGA_INCLUDE_DIR NAMES im2d.hpp PATHS /usr/include/rga /usr/include)
+if(RGA_INCLUDE_DIR)
+  include_directories(${RGA_INCLUDE_DIR})
+endif()
+
+
 set(GPI_CORE_SRC
   src/common.cc src/npy.cc src/tokenizer.cc src/embed.cc
   src/vision.cc src/llm.cc src/protocol.cc src/preprocess.cc)
@@ -66,14 +81,17 @@ endif()
 # ------------------------------ production apps ----------------------------
 if(ENABLE_GROUNDINGPI)
   add_executable(groundingpi apps/baseline/main.cc ${GPI_CORE_SRC})
-  target_link_libraries(groundingpi ${RKNN_LIB} ${RKLLM_LIB} pthread)
+  target_link_libraries(groundingpi ${RKNN_LIB} ${RKLLM_LIB} ${OpenCV_LIBS} pthread)
+  if(RGA_LIB)
+    target_link_libraries(groundingpi ${RGA_LIB})
+  endif()
   set_target_properties(groundingpi PROPERTIES BUILD_RPATH "${GPI_RPATH}")
 endif()
 
 if(ENABLE_STUDENT)
   add_executable(student_v1 apps/student/main.cc
     src/common.cc src/tokenizer.cc src/embed.cc src/vision.cc src/llm.cc)
-  target_link_libraries(student_v1 ${RKNN_LIB} ${RKLLM_LIB} pthread)
+  target_link_libraries(student_v1 ${RKNN_LIB} ${RKLLM_LIB} ${OpenCV_LIBS} pthread)
   set_target_properties(student_v1 PROPERTIES BUILD_RPATH "${GPI_RPATH}")
 endif()
 
@@ -108,8 +126,6 @@ if(ENABLE_EXPERIMENTS)
 endif()
 
 if(ENABLE_EXPERIMENTS AND ENABLE_OPENCV_EXPERIMENTS)
-  find_package(OpenCV REQUIRED)
-
   add_executable(student_batch_prep experiments/student_batch_prep.cc
     src/common.cc src/tokenizer.cc src/embed.cc src/vision.cc)
   target_link_libraries(student_batch_prep ${RKNN_LIB} ${OpenCV_LIBS} pthread)
@@ -123,10 +139,10 @@ if(ENABLE_EXPERIMENTS AND ENABLE_OPENCV_EXPERIMENTS)
   set_target_properties(student_batch_pair PROPERTIES BUILD_RPATH "${GPI_RPATH}")
 
   add_executable(rga_probe experiments/rga_probe.cc)
-  target_link_libraries(rga_probe rga pthread)
+  target_link_libraries(rga_probe ${RGA_LIB} pthread)
 
   add_executable(rga_probe2 experiments/rga_probe2.cc)
-  target_link_libraries(rga_probe2 rga ${RKNN_LIB} pthread)
+  target_link_libraries(rga_probe2 ${RGA_LIB} ${RKNN_LIB} pthread)
 endif()
 
 install(TARGETS groundingpi student_v1
