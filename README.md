@@ -34,6 +34,24 @@ groundingpi-rk3588/
 └── NOTICE.md               # provenance / licensing
 ```
 
+## Prebuilt weights (Releases)
+
+Converted assets are published as GitHub Release assets (split into <2 GiB parts, with
+`SHA256SUMS`):
+
+- [`student-fp16-v1`](https://github.com/zepher-kk/groundingpi-rk3588/releases/tag/student-fp16-v1) —
+  3s student FP16: language model (3 parts), vision RKNN, tokenizer bins, embedding table.
+- [`baseline-4b-w8a8`](https://github.com/zepher-kk/groundingpi-rk3588/releases/tag/baseline-4b-w8a8) —
+  original GroundingPI-4B: language model (3 parts), three vision stages, llm-assets.
+
+```bash
+mkdir -p ~/gpi-assets/student && cd ~/gpi-assets/student
+# download the assets of the release with your preferred client, then:
+cat student_qwen3-1.7b-fp16.rkllm.part-* > student_qwen3-1.7b-fp16.rkllm
+sha256sum -c SHA256SUMS
+export GPI_STUDENT_DIR=$PWD
+```
+
 ## Requirements
 
 - RK3588 board (aarch64), Linux, g++ ≥ 11, CMake ≥ 3.16
