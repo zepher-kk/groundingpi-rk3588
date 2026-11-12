@@ -34,6 +34,12 @@ groundingpi-rk3588/
 └── NOTICE.md               # provenance / licensing
 ```
 
+![3s student on the board](docs/assets/student-example.png)
+
+<sub>Same image, two descriptions, predictions parsed from a real board run (round-2 64-request
+subset). Green dashed = ground truth, red = model box. These 64 requests are training samples —
+the figure shows the deployment path works, not generalization.</sub>
+
 ## Prebuilt weights (Releases)
 
 Converted assets are published as GitHub Release assets (split into <2 GiB parts, with
